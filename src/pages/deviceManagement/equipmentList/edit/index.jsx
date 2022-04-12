@@ -5,15 +5,11 @@ export default function  editList ( ) {
   return (
     <div className={styles.editMain}>
       <div className={styles.header}>
-        <section className={styles.headerWord1}> 设备管理 / 设备列表</section>
-        <section className={styles.headerWord2}>设备列表</section>
+        <section className={styles.headerWord1}> 设备管理 / 设备列表 / 运营设备 / 编辑运营设备信息</section>
+        <section className={styles.headerWord2}>编辑运营设备信息</section>
       </div>
-      <div className={styles.tableContent}>
-        <section className={styles.tableH}>
-          <div className={styles.hWord1}>设备列表</div>
-          <div className={styles.hWord2}>导出</div>
-        </section>
-        <div className={styles.table}>2</div>
+      <div className={styles.editContent}>
+        1
       </div>
     </div>)
 }
