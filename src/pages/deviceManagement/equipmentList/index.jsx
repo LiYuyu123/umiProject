@@ -1,15 +1,13 @@
 import styles from './index.less'
 import React from 'react';
 import {
-  Row,
-  Col,
-  Card,
   Button,
   Form,
   Table,
   Input,
   Space
 } from 'antd';
+const { Column } = Table;
 export default function  equipmentList ( ) {
   const [form] = Form.useForm();
       return (
@@ -72,7 +70,15 @@ export default function  equipmentList ( ) {
                 <div className={styles.hWord1}>设备列表</div>
                 <div className={styles.hWord2}>导出</div>
              </section>
-            <div className={styles.table}>2</div>
+            <div className={styles.table}>
+              <div>
+                 <Table
+
+                 >
+
+                 </Table>
+              </div>
+            </div>
           </div>
       </div>)
 }

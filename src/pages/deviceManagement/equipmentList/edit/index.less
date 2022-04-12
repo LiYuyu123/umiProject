@@ -1,5 +1,4 @@
 .editMain {
-  height: calc(100vh - 48px);
   .header {
     background: white;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -17,9 +16,39 @@
     }
   }
   .editContent {
-    margin: 24px 24px 0 24px;
-    padding: 16px 24px 0 24px;
+    margin: 24px 24px 60px 24px;
+    padding: 0 24px 0 24px;
     background: #FFFFFF;
     border-radius: 10px;
-  }
+    padding-bottom: 60px;
+    .information {
+      .zWord {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.85);
+        padding-top: 16px;
+      }
+      .zFrom {
+        margin-top: 16px;
+        border-bottom: 1px solid #D9D9D9;
+      }
+    }
+    .editButton {
+      margin-top:16px;
+      :global {
+        .ant-btn {
+          width: 65px;
+          height: 32px;
+          border-radius: 4px;
+          border: 1px solid rgba(0, 0, 0, 0.15) !important;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.65);
+        }
+        .ant-btn-primary {
+          color: white;
+          background: #00CA88;
+        }
+      }
+    }
+   }
 }
