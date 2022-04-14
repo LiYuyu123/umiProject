@@ -1,7 +1,7 @@
 import styles from './index.less'
 import React, {useEffect} from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { connect } from 'umi';
+import { connect ,history} from 'umi';
 import {
   Button,
   Form,
@@ -23,7 +23,7 @@ const  equipmentList = (
     dispatch({
       type:'list/getList',
     })
-  },[])
+  },[]);
 
   const  expandedRowRender = () =>{
     const columns = [
@@ -95,7 +95,34 @@ const  equipmentList = (
       width: 160,
     },
     { title: 'ICCID', dataIndex: 'iccid', key: 'iccid', width: 160, },
-    { title: '操作', dataIndex: 'action', key: 'action' , width: 350,},
+    { title: '操作', dataIndex: 'action', key: 'action' , width: 450,
+     render:(rec) => (
+       <div style={{color:'#00CA88', cursor: 'pointer'}}>
+         <span
+           onClick={
+            (rec) => {
+           history.push({
+                 pathname:'/deviceManagement/equipmentList/detail',
+                 query: {id: rec.id ,zName: rec.zName}
+           });
+         }
+         }>详情</span>
+         <span
+           style={{ paddingLeft: '34px'}}
+           onClick={
+             (rec) => {
+               history.push({
+                 pathname:'/deviceManagement/equipmentList/edit',
+                 query: {id: rec.id ,zName: rec.zName}
+               });
+             }
+           }
+         >编辑</span>
+         <span style={{ paddingLeft: '34px'}}>变更站点</span>
+         <span style={{ paddingLeft: '34px'}}>解除绑定</span>
+       </div>
+     )
+    },
   ]
       return (
         <div

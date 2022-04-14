@@ -28,5 +28,10 @@ export default {
     },
     message: '',
     success: true,
+  },
+  'POST /api/addFrom': {
+    code: 200,
+    message: '数据上传成功',
+    data: []
   }
 }

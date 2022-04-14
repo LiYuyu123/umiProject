@@ -2,7 +2,7 @@ import styles from './index.less'
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import {siteData,qData} from "../../../../constants";
-
+import {history} from "umi";
 
 export default function  editList ( ) {
   return (
@@ -52,7 +52,12 @@ export default function  editList ( ) {
         ]}
       >
            <div className={styles.detailContent}>
-             <div className={styles.button}>
+             <div
+               className={styles.button}
+               onClick={()=>{
+                 history.go(-1)
+               }}
+             >
                <div></div> 返回
              </div>
               <div className={styles.mainContent}>

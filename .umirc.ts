@@ -26,12 +26,14 @@ export default defineConfig({
         {
           name: '编辑',
           path: '/deviceManagement/equipmentList/edit',
-          component: '@/pages//deviceManagement/equipmentList/edit'
+          component: '@/pages/deviceManagement/equipmentList/edit',
+          hideInMenu: true,
         },
         {
           name: '详情',
           path: '/deviceManagement/equipmentList/detail',
-          component: '@/pages//deviceManagement/equipmentList/detail'
+          component: '@/pages/deviceManagement/equipmentList/detail',
+          hideInMenu: true,
         }
       ],
     },
