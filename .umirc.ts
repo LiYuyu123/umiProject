@@ -16,7 +16,6 @@ export default defineConfig({
     {
       name: '设备管理',
       path: '/deviceManagement',
-      access: 'routeAccess',
       role: 'deviceManagement',
       routes: [
         {
