@@ -137,24 +137,24 @@ const  equipmentList = (
     },
     { title: 'ICCID', dataIndex: 'iccid', key: 'iccid', width: 160, },
     { title: '操作', dataIndex: 'action', key: 'action' , width: 450,
-     render:(rec) => (
+     render:(text, record, index) => (
        <div style={{color:'#00CA88', cursor: 'pointer'}}>
          <span
            onClick={
-            (rec) => {
+            () => {
            history.push({
                  pathname:'/deviceManagement/equipmentList/detail',
-                 query: {id: rec.id ,zName: rec.zName}
+                 query: { id: record?.id , zName: record?.zName}
            });
          }
          }>详情</span>
          <span
            style={{ marginLeft: '34px'}}
            onClick={
-             (rec) => {
+             () => {
                history.push({
                  pathname:'/deviceManagement/equipmentList/edit',
-                 query: {id: rec.id ,zName: rec.zName}
+                 query: { id: record?.id ,zName: record?.zName}
                });
              }
            }

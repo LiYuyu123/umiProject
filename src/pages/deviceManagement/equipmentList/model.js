@@ -1,4 +1,4 @@
-import {exportList, getResList, searchList} from "./server";
+import {exportList, getResList, searchList} from "./service";
 import download from 'downloadjs'
 export default  {
   namespace:'list',

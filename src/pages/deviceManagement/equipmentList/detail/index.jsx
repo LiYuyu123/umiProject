@@ -1,10 +1,30 @@
 import styles from './index.less'
-import React from 'react';
+import React, {useEffect} from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import {siteData,qData} from "../../../../constants";
-import {history} from "umi";
+import { Spin } from 'antd';
+import {history ,connect} from "umi";
+import dayjs from "dayjs";
 
-export default function  editList ( ) {
+const  detail = (
+  {
+    dispatch,
+    location,
+    detailLoading = false,
+    detailData,
+  }
+) => {
+
+  useEffect(()=>{
+     const { query } = location;
+     dispatch({
+       type:'detail/getDetail',
+       payload: {
+         ...query
+       }
+     });
+  } ,[])
+
   return (
     <div
       style={{
@@ -51,11 +71,12 @@ export default function  editList ( ) {
           },
         ]}
       >
-           <div className={styles.detailContent}>
+        <Spin spinning={ detailLoading}>
+           <div className={styles.detailContent} >
              <div
                className={styles.button}
                onClick={()=>{
-                 history.go(-1)
+                 history.go(-1);
                }}
              >
                <div></div> 返回
@@ -63,6 +84,18 @@ export default function  editList ( ) {
               <div className={styles.mainContent}>
                 {
                 siteData.map((i,index)=>{
+                  if(detailData[0] !== undefined && i.name === '站点信息' ) {
+                    const  zInfo =detailData[0];
+                    Object.keys(zInfo).forEach((item,index) => {
+                      i.data[index].value = zInfo[item];
+                    });
+                  }
+                  if(detailData[1] !== undefined && i.name === '充电桩信息'){
+                    const cInfo = detailData[1];
+                    Object.keys(cInfo).forEach((item,index) => {
+                      i.data[index].value = cInfo[item];
+                    });
+                  }
                   return(
                     <section className={styles.site} key={index}>
                       <div className={styles.siteWord}>{ i.name }</div>
@@ -82,13 +115,41 @@ export default function  editList ( ) {
                }
                {
                  qData.map((i,index)=>{
+                   if(detailData[2] !== undefined && i.name === '充电枪1信息' ) {
+                     const  qInfo =detailData[2];
+                     Object.keys(qInfo).forEach((item,index) => {
+                       if(qInfo[item] !== '') {
+                         i.data[index].value = qInfo[item];
+                       }
+                     });
+                   }
+                   if(detailData[3] !== undefined && i.name === '充电枪2信息'){
+                     const qInfo = detailData[3];
+                     Object.keys(qInfo).forEach((item,index) => {
+                       if(qInfo[item] !== '') {
+                         i.data[index].value = qInfo[item];
+                       }
+                     });
+                   }
                    return (
                      <section className={styles.site} key={index}>
                        <div className={styles.siteH}>
                          <div className={styles.hWord}>{i.name}</div>
                          <div className={styles.leftH}>
-                           <div  className={styles.lWord}>最近同步时间：<span>2021-12-22 17:23:33</span></div>
-                           <div className={styles.lButton}> <div></div> 刷新</div>
+                           <div  className={styles.lWord}>最近同步时间：<span>{dayjs(new Date()).format('YYYY-MM-DD hh:mm:ss')}</span></div>
+                           <div
+                             className={styles.lButton}
+                             onClick={
+                               () => {
+                                 dispatch({
+                                   type:'detail/getDetail',
+                                   payload: {
+                                     date:dayjs(new Date()).format('YYYY-MM-DD hh:mm:ss')
+                                   }
+                                 });
+                               }
+                             }
+                           > <div></div> 刷新</div>
                          </div>
                        </div>
                        <div className={styles.wrapperInfo} style={{height: i.height,width:i.width}}>
@@ -109,8 +170,13 @@ export default function  editList ( ) {
                }
              </div>
           </div>
+        </Spin>
       </PageContainer>
     </div>
-
   )
 }
+
+export default connect(({detail,loading})=>({
+   ...detail,
+  detailLoading: loading.effects['detail/getDetail']
+}))(detail)
