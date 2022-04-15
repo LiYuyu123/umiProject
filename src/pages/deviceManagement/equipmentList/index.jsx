@@ -12,9 +12,14 @@ import {
 } from 'antd';
 
 const  equipmentList = (
-  {dispatch,
-  tableLoading = false,
-  listData
+  {
+    dispatch,
+    tableLoading = false,
+    listData,
+    params,
+    curPage,
+    pageSize,
+    total
   }
 ) => {
   const [form] = Form.useForm();
@@ -25,16 +30,52 @@ const  equipmentList = (
     })
   },[]);
 
+  //查询搜索
+  const  fromData = (values) => {
+     dispatch({
+       type:'list/searchList',
+       payload: {
+         ...values
+       }
+     });
+  }
+
+  //重置
+  const listReset = () => {
+    form.resetFields();
+    dispatch({
+      type:'list/getList',
+    });
+  };
+
+  //分页
+  const PageChange = (curPage,pageSize) => {
+    dispatch({
+      type: 'list/searchList',
+      payload:{
+        curPage,
+        pageSize
+      }
+    });
+  }
+
+  //导出
+  const onExport = () => {
+        dispatch({
+          type:'list/listExport'
+        })
+  }
+
   const  expandedRowRender = () =>{
     const columns = [
-      { title: '充电枪编号', dataIndex: 'qDate', key: 'qDate' },
-      { title: '充电枪名称', dataIndex: 'qName', key: 'qName' },
-      { title: '充电枪功率', dataIndex: 'qPower', key: 'qPower' },
-      { title: '最后充电时间', dataIndex: 'endDate', key: 'endDate' },
-      { title: '总充电度数', dataIndex: 'zcNumber', key: 'zcNumber' },
-      { title: '启用/停用', dataIndex: 'switch', key: 'switch' },
+      { title: '充电枪编号', dataIndex: 'qDate', key: 'qDate', width: 200, },
+      { title: '充电枪名称', dataIndex: 'qName', key: 'qName' , width: 200,},
+      { title: '充电枪功率', dataIndex: 'qPower', key: 'qPower', width: 200, },
+      { title: '最后充电时间', dataIndex: 'endDate', key: 'endDate', width: 200, },
+      { title: '总充电度数', dataIndex: 'zcNumber', key: 'zcNumber' , width: 200,},
+      { title: '启用/停用', dataIndex: 'switch', key: 'switch', width: 200, },
     ]
-    return <Table columns={columns}  pagination={false} />;
+    return <Table columns={columns}   pagination={false} />;
   }
   const columns = [
     { title: '序号', dataIndex: 'id', key: 'id' ,
@@ -84,7 +125,7 @@ const  equipmentList = (
     { title: '通信协议版本', dataIndex: 'tEdition', key: 'tEdition' ,
       filters:[],
       onFilter:() => {} ,
-      width: 160,
+      width: 180,
     },
     { title: '创建时间', dataIndex: 'createDate', key: 'createDate',
       sorter: () => {},
@@ -108,7 +149,7 @@ const  equipmentList = (
          }
          }>详情</span>
          <span
-           style={{ paddingLeft: '34px'}}
+           style={{ marginLeft: '34px'}}
            onClick={
              (rec) => {
                history.push({
@@ -118,8 +159,8 @@ const  equipmentList = (
              }
            }
          >编辑</span>
-         <span style={{ paddingLeft: '34px'}}>变更站点</span>
-         <span style={{ paddingLeft: '34px'}}>解除绑定</span>
+         <span style={{ marginLeft: '34px'}}>变更站点</span>
+         <span style={{ marginLeft: '34px'}}>解除绑定</span>
        </div>
      )
     },
@@ -163,11 +204,12 @@ const  equipmentList = (
             ]}
           >
             <div className={styles.search}>
-                     <Form
+              <Form
                     form={form}
                     size="large"
                     name="form-auth"
                     className={styles.from}
+                    onFinish={fromData}
                   >
                     <div style={{marginLeft:'40px'}}>
                       <div className={styles.searchItem1}>
@@ -202,8 +244,8 @@ const  equipmentList = (
                     <div className={styles.wrapperB}>
                       <Form.Item>
                         <Space>
-                          <Button >重置</Button>
-                          <Button type="primary">
+                          <Button onClick={listReset}>重置</Button>
+                          <Button type="primary" htmlType="submit">
                             搜索
                           </Button>
                         </Space>
@@ -214,7 +256,7 @@ const  equipmentList = (
                 <div className={styles.tableContent}>
                    <section className={styles.tableH}>
                       <div className={styles.hWord1}>设备列表</div>
-                      <div className={styles.hWord2}>导出</div>
+                      <div className={styles.hWord2} onClick={ onExport}>导出</div>
                    </section>
                   <div className={styles.table}>
                     <div>
@@ -224,6 +266,14 @@ const  equipmentList = (
                          scroll={{ x: 2284 }}
                          loading={tableLoading}
                          dataSource={ listData}
+                         pagination={
+                           {
+                             current:curPage,
+                             pageSize: pageSize,
+                             total: total,
+                             onChange: PageChange,
+                           }
+                         }
                        />
                     </div>
                   </div>

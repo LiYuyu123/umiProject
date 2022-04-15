@@ -3,8 +3,8 @@ export default {
   'GET /api/getTable': {
     code: 200,
     data: {
-      curPage: 0,
-      pageSize: 0,
+      curPage: 1,
+      pageSize: 10,
       records: [
         {
           id: 1,
@@ -24,7 +24,7 @@ export default {
           iccid:'DDD'
         },
       ],
-      total: 20,
+      total: 50,
     },
     message: '',
     success: true,
@@ -33,5 +33,39 @@ export default {
     code: 200,
     message: '数据上传成功',
     data: []
-  }
+  },
+  'GET /api/searchTable': {
+    code: 200,
+    data: {
+      curPage: 1,
+      pageSize: 10,
+      records: [
+        {
+          id: '',
+          zId:'',
+          zName:'',
+          cNumber:'',
+          oem:'',
+          cModel:'',
+          cType:'',
+          cPower:'',
+          qNumber:'',
+          gEdition:'',
+          cEdition:'',
+          tEdition:'',
+          createDate:'',
+          jDate:'',
+          iccid:''
+        },
+      ],
+      total: 50,
+    },
+    message: '',
+    success: true,
+  },
+  'POST /api/exportList': {
+    code: 200,
+    message: '导出成功',
+    data: []
+  },
 }
