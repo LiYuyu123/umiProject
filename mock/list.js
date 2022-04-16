@@ -30,6 +30,22 @@ export default {
     success: true,
   },
 
+  'GET /api/getBottomTable': {
+    code: 200,
+    data: [
+        {
+         qDate: '2021-10-1',
+          qName: 'lzj',
+          qPower: '17kw',
+          endDate: '2022-10-1',
+          zcNumber: 15,
+          switch: false
+        },
+      ],
+    message: '',
+    success: true,
+  },
+
   'GET /api/searchTable': {
     code: 200,
     data: {
@@ -65,6 +81,14 @@ export default {
     message: '导出成功',
     data: []
   },
+
+  //上传充电枪是否启用数据
+  'POST /api/enableData': {
+    code: 200,
+    message: '导出成功',
+    data: []
+  },
+
   //上传编辑信息
   'POST /api/editData': {
     code: 200,
@@ -132,7 +156,6 @@ export default {
         current:'',
         temperature:'',
         remainingTime:'',
-        SOC: 64.5
       },
       {
         qNumber: '1212121',
@@ -148,7 +171,10 @@ export default {
         current:'',
         temperature:'',
         remainingTime:'',
-        SOC: 80.5
+      },
+      {
+        soc1: 0.685,
+        soc2: 0.855,
       }
     ]
   },

@@ -12,7 +12,7 @@ export default  {
   },
   effects:{
     //获取详情数据
-    *getDetail({ payload:{ ...values} } , {call , put}) {
+    * getDetail({ payload:{ ...values} } , {call , put}) {
       const  { data } = yield call(getDetail,{...values})
       yield put({
         type:'save',

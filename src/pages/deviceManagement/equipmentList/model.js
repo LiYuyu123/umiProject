@@ -1,5 +1,6 @@
-import {exportList, getResList, searchList} from "./service";
+import {exportList, getBottomList, getResList, postEnableData, searchList} from "./service";
 import download from 'downloadjs'
+import {message} from "antd";
 export default  {
   namespace:'list',
   state:{
@@ -7,6 +8,7 @@ export default  {
     curPage: 1,
     pageSize: 10,
     listData: [],
+    bListData: [],
     params: {} //剩余参数
   },
   reducers:{
@@ -25,6 +27,21 @@ export default  {
            total
          }
        })
+    },
+    //下拉表格数据
+    *getBottomList( {payload : { id }} , { call , put}){
+      const { data } = yield call(getBottomList, { id })
+      yield put({
+        type:'save',
+        payload: {
+          bListData: data
+        }
+      })
+    },
+
+    *postEnableData( { payload: { enable}} , {call}) {
+      yield call(postEnableData, {enable})
+      message.success('设置成功')
     },
     *searchList( { payload:{ curPage = 1 ,pageSize = 10 ,...values } },{call ,put}) {
       const { data: { records = [] ,total}} = yield call(searchList, {curPage,pageSize,...values})
