@@ -1,5 +1,5 @@
 import styles from './index.less'
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PageContainer} from '@ant-design/pro-layout';
 import {connect, history} from "umi";
 import {
@@ -16,7 +16,6 @@ const Option = Select
 const editList = (
   {
     dispatch,
-    location,
     preservationLoading = false,
     editData
   }
@@ -24,16 +23,17 @@ const editList = (
   const [form] = Form.useForm();
 
   useEffect(() => {
-    const {query} = location
-    dispatch({
-      type: 'addFrom/getFromData',
-      payload: {
-        ...query
-      }
-    })
-    JSON.stringify(editData) !== '{}' && form.setFieldsValue({...editData})
-    console.log(editData)
-  }, [])
+    form.setFieldsValue({...editData})
+    // const {query} = location
+    // query && dispatch({
+    //   type: 'addFrom/getFromData',
+    //   payload: {
+    //     ...query
+    //   }
+    // })
+    // setX({...editData})
+    // JSON.stringify(editData) !== '{}' && form.setFieldsValue({...x})
+  }, [editData])
 
   //保存编辑
   const onPreservation = (values) => {

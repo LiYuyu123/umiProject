@@ -9,7 +9,9 @@ import {
   Input,
   Space,
   DatePicker,
-  Switch
+  Switch,
+  Row,
+  Col
 } from 'antd';
 
 const equipmentList = (
@@ -258,49 +260,54 @@ const equipmentList = (
             form={form}
             size="large"
             name="form-auth"
-            className={styles.from}
             onFinish={fromData}
+            className={styles.from}
           >
-            <div style={{marginLeft: '40px'}}>
-              <div className={styles.searchItem1}>
+            <Row gutter={ [50]} className={styles.row}>
+              <Col span={4.8}>
                 <Form.Item label="站点id" name="id">
                   <Input placeholder="请输入" allowClear/>
                 </Form.Item>
-                <Form.Item label="站点名称" name="zName">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-                <Form.Item label="充电桩编号" name="cNumber">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-                <Form.Item label="充电桩功率" name="cPower">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-              </div>
-              <div className={styles.searchItem2}>
                 <Form.Item label="创建日期" name="createDate">
                   <DatePicker/>
+                </Form.Item>
+
+              </Col>
+              <Col span={4.8}>
+                <Form.Item label="站点名称" name="zName">
+                  <Input placeholder="请输入" allowClear/>
                 </Form.Item>
                 <Form.Item label="激活日期" name="jDate">
                   <DatePicker/>
                 </Form.Item>
+              </Col>
+              <Col span={4.8}>
+                <Form.Item label="充电桩编号" name="cNumber">
+                  <Input placeholder="请输入" allowClear/>
+                </Form.Item>
                 <Form.Item label="ICCID" name="ICCID">
+                  <Input placeholder="请输入" allowClear/>
+                </Form.Item>
+              </Col>
+              <Col span={4.8}>
+                <Form.Item label="充电桩功率" name="cPower">
                   <Input placeholder="请输入" allowClear/>
                 </Form.Item>
                 <Form.Item label="充电枪编号" name="qNumber">
                   <Input placeholder="请输入" allowClear/>
                 </Form.Item>
-              </div>
-            </div>
-            <div className={styles.wrapperB}>
-              <Form.Item>
-                <Space>
-                  <Button onClick={listReset}>重置</Button>
-                  <Button type="primary" htmlType="submit">
-                    搜索
-                  </Button>
-                </Space>
-              </Form.Item>
-            </div>
+              </Col>
+              <Col span={4.8} style={ { paddingTop: '65px'}}>
+                  <Form.Item>
+                    <Space>
+                      <Button onClick={listReset}>重置</Button>
+                      <Button type="primary" htmlType="submit">
+                        搜索
+                      </Button>
+                    </Space>
+                  </Form.Item>
+              </Col>
+            </Row>
           </Form>
         </div>
         <div className={styles.tableContent}>

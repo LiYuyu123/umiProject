@@ -22,8 +22,8 @@ export default {
       }
     },
     //获取编辑详情数据
-    * getFromData({payload: {...value}}, {call, put}) {
-      const {data} = yield call(getFromData, {...value})
+    * getFromData({payload: {id, zName}}, {call, put}) {
+      const {data} = yield call(getFromData, {id, zName})
       yield put({
         type: "save",
         payload: {
@@ -32,5 +32,16 @@ export default {
       })
     }
   },
-  subscriptions: {}
+  subscriptions: {
+    setup({dispatch, history}) {
+      return history.listen(({pathname, query}) => {
+        if (pathname === '/deviceManagement/equipmentList/edit' && query.id !== undefined) {
+          dispatch({
+            type: 'getFromData',
+            payload: query
+          });
+        }
+      });
+    }
+  }
 }
