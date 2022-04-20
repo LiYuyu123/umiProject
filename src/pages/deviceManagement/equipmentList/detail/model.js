@@ -14,13 +14,28 @@ export default  {
     //获取详情数据
     * getDetail({ payload:{ ...values} } , {call , put}) {
       const  { data } = yield call(getDetail,{...values})
-      yield put({
-        type:'save',
-        payload: {
-          detailData: data
-        }
-      })
+      if( id) {
+        yield put({
+          type: 'save',
+          payload: {
+            detailData: data
+          }
+        })
+      }
     }
   },
-  subscriptions:{}
+  subscriptions:{
+    setup({dispatch, history}) {
+      return history.listen(({pathname, query}) => {
+        if (pathname === '/deviceManagement/equipmentList/detail') {
+          dispatch({
+            type: 'getDetail',
+            payload: {
+              ...query
+            }
+          });
+        }
+      });
+    }
+  }
 }

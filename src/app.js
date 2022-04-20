@@ -6,3 +6,16 @@ export const dva = {
     },
   },
 };
+// umi-request error处理
+export const request = {
+  errorConfig: {
+    adaptor: (resData) => {
+      console.log(resData)
+      return {
+        ...resData,
+        success:resData.code === 200,
+        errorMessage: resData.message,
+      };
+    },
+  },
+};

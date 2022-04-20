@@ -10,74 +10,19 @@ import Progress from "./components/Progress";
 const detail = (
   {
     dispatch,
-    location,
     detailLoading = false,
     detailData,
   }
 ) => {
 
-  useEffect(() => {
-    const {query} = location;
-    dispatch({
-      type: 'detail/getDetail',
-      payload: {
-        ...query
-      }
-    });
-  }, [])
-
   return (
-    <div
-      style={{
-        background: '#F5F7FA',
-      }}
-    >
-      <PageContainer
-        fixedHeader
-        header={{
-          title: '设备列表',
-          breadcrumb: {
-            routes: [
-              {
-                path: '',
-                breadcrumbName: ' 设备管理',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 设备列表',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 运营设备',
-              },
-              {
-                path: '',
-                breadcrumbName: '设备详情',
-              }
-            ],
-          },
-        }}
-        tabList={[
-          {
-            tab: '运营设备',
-            key: '1',
-          },
-          {
-            tab: '私桩设备',
-            key: '2',
-          },
-          {
-            tab: '未分配设备',
-            key: '3',
-          },
-        ]}
-      >
+
         <Spin spinning={detailLoading}>
           <div className={styles.detailContent}>
             <div
               className={styles.button}
               onClick={() => {
-                history.go(-1);
+                history.back();
               }}
             >
               <div></div>
@@ -161,7 +106,7 @@ const detail = (
                           </div>
                         </div>
                       </div>
-                      <Row gutter={24}>
+                      <Row gutter={24} >
                         <Col span={12}>
                           <div className={styles.wrapperInfo} style={{height: i.height, width: i.width}}>
                             {
@@ -187,8 +132,6 @@ const detail = (
             </div>
           </div>
         </Spin>
-      </PageContainer>
-    </div>
   )
 }
 

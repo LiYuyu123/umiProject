@@ -30,7 +30,7 @@ export const siteData = [
 
 export const qData = [
   {
-    name: '充电枪1信息', height: '300px', width: '555px', data: [
+    name: '充电枪1信息', height: '300px', width: '505px', data: [
       {name: '枪编号', value: '-'},
       {name: '枪功率', value: '-'},
       {name: '累计充电度数', value: '-'},
@@ -47,7 +47,7 @@ export const qData = [
     ], soc: 0
   },
   {
-    name: '充电枪2信息', height: '300px', width: '555px', data: [
+    name: '充电枪2信息', height: '300px', width: '505px', data: [
       {name: '枪编号', value: '-'},
       {name: '枪功率', value: '-'},
       {name: '累计充电度数', value: '-'},

@@ -16,26 +16,26 @@ export default {
     //上传
     * postFrom({payload: {...values}}, {call}) {
       const res = yield call(addFromData, {...values});
-      if (res.message === '数据上传成功') {
-        message.success('数据保存成功')
-        history.go(-1);
-      }
+      message.success('数据保存成功');
+      history.back();
     },
     //获取编辑详情数据
     * getFromData({payload: {id, zName}}, {call, put}) {
       const {data} = yield call(getFromData, {id, zName})
-      yield put({
-        type: "save",
-        payload: {
-          editData: data
-        }
-      })
+      if(id && zName) {
+        yield put({
+          type: "save",
+          payload: {
+            editData: data
+          }
+        })
+      }
     }
   },
   subscriptions: {
     setup({dispatch, history}) {
       return history.listen(({pathname, query}) => {
-        if (pathname === '/deviceManagement/equipmentList/edit' && query.id !== undefined) {
+        if (pathname === '/deviceManagement/equipmentList/edit') {
           dispatch({
             type: 'getFromData',
             payload: query

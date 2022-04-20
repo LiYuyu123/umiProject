@@ -17,11 +17,12 @@ export default defineConfig({
       name: '设备管理',
       path: '/deviceManagement',
       role: 'deviceManagement',
+      component: '@/pages/deviceManagement',
       routes: [
         {
           name: '设备列表',
           path: '/deviceManagement/equipmentList',
-          component: '@/pages//deviceManagement/equipmentList',
+          component: '@/pages/deviceManagement/equipmentList',
         },
         {
           name: '编辑',

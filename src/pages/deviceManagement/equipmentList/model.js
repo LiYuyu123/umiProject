@@ -9,7 +9,6 @@ export default  {
     pageSize: 10,
     listData: [],
     bListData: [],
-    params: {} //剩余参数
   },
   reducers:{
     save(state,{payload: newState}) {
@@ -61,5 +60,18 @@ export default  {
        download(data,'运行设备.xlsx')
     }
   },
-  subscriptions:{}
+  subscriptions:{
+    setup({dispatch, history}) {
+      return history.listen(({pathname, query}) => {
+        if (pathname === '/deviceManagement/equipmentList') {
+          dispatch({
+            type: 'searchList',
+            payload: {
+              ...query
+            }
+          });
+        }
+      });
+    }
+  }
 }

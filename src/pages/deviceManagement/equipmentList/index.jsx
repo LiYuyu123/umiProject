@@ -1,6 +1,5 @@
 import styles from './index.less'
 import React, {useEffect} from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
 import {connect, history} from 'umi';
 import {
   Button,
@@ -21,17 +20,16 @@ const equipmentList = (
     listData,
     bListData,
     curPage,
+    location,
     pageSize,
     total
   }
 ) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    dispatch({
-      type: 'list/getList',
-    })
-  }, []);
+  useEffect(()=>{
+    location.query && form.setFieldsValue({...location.query})
+  },[])
 
   //获取扩展table数据
   const getBListData = (expanded, record) => {
@@ -45,6 +43,12 @@ const equipmentList = (
 
   //查询搜索
   const fromData = (values) => {
+    history.replace({
+      pathname:'/deviceManagement/equipmentList',
+      query: {
+        ...values
+      }
+    })
     dispatch({
       type: 'list/searchList',
       payload: {
@@ -55,9 +59,12 @@ const equipmentList = (
 
   //重置
   const listReset = () => {
+    history.replace({
+      pathname:'/deviceManagement/equipmentList',
+    })
     form.resetFields();
     dispatch({
-      type: 'list/getList',
+      type: 'list/searchLis',
     });
   };
 
@@ -67,7 +74,8 @@ const equipmentList = (
       type: 'list/searchList',
       payload: {
         curPage,
-        pageSize
+        pageSize,
+        ...location.query
       }
     });
   }
@@ -218,43 +226,7 @@ const equipmentList = (
     },
   ]
   return (
-    <div
-      style={{
-        background: '#F5F7FA',
-      }}
-    >
-      <PageContainer
-        fixedHeader
-        header={{
-          title: '设备列表',
-          breadcrumb: {
-            routes: [
-              {
-                path: '',
-                breadcrumbName: ' 设备管理',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 设备列表',
-              },
-            ],
-          },
-        }}
-        tabList={[
-          {
-            tab: '运营设备',
-            key: '1',
-          },
-          {
-            tab: '私桩设备',
-            key: '2',
-          },
-          {
-            tab: '未分配设备',
-            key: '3',
-          },
-        ]}
-      >
+      <div>
         <div className={styles.search}>
           <Form
             form={form}
@@ -263,41 +235,48 @@ const equipmentList = (
             onFinish={fromData}
             className={styles.from}
           >
-            <Row gutter={ [50]} className={styles.row}>
-              <Col span={4.8}>
-                <Form.Item label="站点id" name="id">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-                <Form.Item label="创建日期" name="createDate">
-                  <DatePicker/>
-                </Form.Item>
-
+            <Row gutter={30} >
+              <Col  lg={12} xl={8} xxl={5} >
+                  <Form.Item label="站点id" name="id">
+                    <Input placeholder="请输入" allowClear/>
+                  </Form.Item>
               </Col>
-              <Col span={4.8}>
+              <Col  lg={12} xl={8} xxl={5}>
                 <Form.Item label="站点名称" name="zName">
                   <Input placeholder="请输入" allowClear/>
                 </Form.Item>
-                <Form.Item label="激活日期" name="jDate">
-                  <DatePicker/>
-                </Form.Item>
               </Col>
-              <Col span={4.8}>
-                <Form.Item label="充电桩编号" name="cNumber">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-                <Form.Item label="ICCID" name="ICCID">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
+              <Col lg={12} xl={8} xxl={5}>
+                  <Form.Item label="充电桩编号" name="cNumber">
+                    <Input placeholder="请输入" allowClear/>
+                  </Form.Item>
               </Col>
-              <Col span={4.8}>
-                <Form.Item label="充电桩功率" name="cPower">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
-                <Form.Item label="充电枪编号" name="qNumber">
-                  <Input placeholder="请输入" allowClear/>
-                </Form.Item>
+              <Col lg={12} xl={8} xxl={5}>
+                  <Form.Item label="充电桩功率" name="cPower">
+                    <Input placeholder="请输入" allowClear/>
+                  </Form.Item>
               </Col>
-              <Col span={4.8} style={ { paddingTop: '65px'}}>
+              <Col  lg={12} xl={8} xxl={5}>
+                  <Form.Item label="创建日期" name="createDate">
+                    <DatePicker/>
+                  </Form.Item>
+              </Col>
+              <Col lg={12}  xl={8} xxl={5}>
+                  <Form.Item label="激活日期" name="jDate">
+                    <DatePicker/>
+                  </Form.Item>
+              </Col>
+              <Col  lg={12} xl={8} xxl={5}>
+                  <Form.Item label="ICCID" name="ICCID">
+                    <Input placeholder="请输入" allowClear/>
+                  </Form.Item>
+              </Col>
+              <Col  lg={12} xl={8} xxl={5}>
+                  <Form.Item label="充电枪编号" name="qNumber">
+                    <Input placeholder="请输入" allowClear/>
+                  </Form.Item>
+              </Col>
+              <Col lg={12} xl={8} xxl={3}>
                   <Form.Item>
                     <Space>
                       <Button onClick={listReset}>重置</Button>
@@ -307,7 +286,51 @@ const equipmentList = (
                     </Space>
                   </Form.Item>
               </Col>
-            </Row>
+              </Row>
+              {/*<Col span={4.8} >*/}
+              {/*  <Form.Item label="站点id" name="id">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*  <Form.Item label="创建日期" name="createDate">*/}
+              {/*    <DatePicker/>*/}
+              {/*  </Form.Item>*/}
+
+              {/*</Col>*/}
+              {/*<Col span={4.8}>*/}
+              {/*  <Form.Item label="站点名称" name="zName">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*  <Form.Item label="激活日期" name="jDate">*/}
+              {/*    <DatePicker/>*/}
+              {/*  </Form.Item>*/}
+              {/*</Col>*/}
+              {/*<Col span={4.8}>*/}
+              {/*  <Form.Item label="充电桩编号" name="cNumber">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*  <Form.Item label="ICCID" name="ICCID">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*</Col>*/}
+              {/*<Col span={4.8}>*/}
+              {/*  <Form.Item label="充电桩功率" name="cPower">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*  <Form.Item label="充电枪编号" name="qNumber">*/}
+              {/*    <Input placeholder="请输入" allowClear/>*/}
+              {/*  </Form.Item>*/}
+              {/*</Col>*/}
+              {/*<Col span={4.8} style={{paddingTop: '65px'}}>*/}
+              {/*  <Form.Item>*/}
+              {/*    <Space>*/}
+              {/*      <Button onClick={listReset}>重置</Button>*/}
+              {/*      <Button type="primary" htmlType="submit">*/}
+              {/*        搜索*/}
+              {/*      </Button>*/}
+              {/*    </Space>*/}
+              {/*  </Form.Item>*/}
+              {/*</Col>*/}
+
           </Form>
         </div>
         <div className={styles.tableContent}>
@@ -342,8 +365,7 @@ const equipmentList = (
             </div>
           </div>
         </div>
-      </PageContainer>
-    </div>
+      </div>
   )
 }
 export default connect(({list, loading}) => ({

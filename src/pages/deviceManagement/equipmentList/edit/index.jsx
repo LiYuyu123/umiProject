@@ -16,6 +16,7 @@ const Option = Select
 const editList = (
   {
     dispatch,
+    location,
     preservationLoading = false,
     editData
   }
@@ -23,16 +24,7 @@ const editList = (
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({...editData})
-    // const {query} = location
-    // query && dispatch({
-    //   type: 'addFrom/getFromData',
-    //   payload: {
-    //     ...query
-    //   }
-    // })
-    // setX({...editData})
-    // JSON.stringify(editData) !== '{}' && form.setFieldsValue({...x})
+     form.setFieldsValue({...editData})
   }, [editData])
 
   //保存编辑
@@ -47,56 +39,11 @@ const editList = (
 
   //取消
   const cancel = () => {
-    form.resetFields;
-    history.go(-1);
+     history.back()
   }
 
   return (
-    <div
-      style={{
-        background: '#F5F7FA',
-      }}
-    >
-      <PageContainer
-        fixedHeader
-        header={{
-          title: '设备列表',
-          breadcrumb: {
-            routes: [
-              {
-                path: '',
-                breadcrumbName: ' 设备管理',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 设备列表',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 运营设备',
-              },
-              {
-                path: '',
-                breadcrumbName: ' 编辑运营设备',
-              }
-            ],
-          },
-        }}
-        tabList={[
-          {
-            tab: '运营设备',
-            key: '1',
-          },
-          {
-            tab: '私桩设备',
-            key: '2',
-          },
-          {
-            tab: '未分配设备',
-            key: '3',
-          },
-        ]}
-      >
+
         <div className={styles.editContent}>
           <Form
             form={form}
@@ -147,14 +94,14 @@ const editList = (
                   name='cNumber'
                   rules={[{required: true, message: '请输入'}]}
                 >
-                  <Input placeholder="请输入" allowClear style={{width: 400}} disabled={editData.cNumber !== undefined}/>
+                  <Input placeholder="请输入" allowClear style={{width: 400}} disabled={editData.id }/>
                 </Form.Item>
                 <Form.Item
                   label='国际版本'
                   name='gEdition'
                   rules={[{required: true, message: '请选择'}]}
                 >
-                  <Select style={{width: 400}} disabled={editData.gEdition !== undefined}>
+                  <Select style={{width: 400}} disabled={editData.id }>
                     <Option value="jack">大气</Option>
                   </Select>
                 </Form.Item>
@@ -163,7 +110,7 @@ const editList = (
                   name='cEdition'
                   rules={[{required: true, message: '请选择'}]}
                 >
-                  <Select style={{width: 400}} disabled={editData.cEdition !== undefined}>
+                  <Select style={{width: 400}} disabled={editData.id }>
                     <Option value="jack">大气</Option>
                   </Select>
                 </Form.Item>
@@ -172,7 +119,7 @@ const editList = (
                   name='agreement'
                   rules={[{required: true, message: '请选择'}]}
                 >
-                  <Select style={{width: 400}} disabled={editData.agreement !== undefined}>
+                  <Select style={{width: 400}} disabled={ editData.id }>
                     <Option value="jack">大气</Option>
                   </Select>
                 </Form.Item>
@@ -187,11 +134,19 @@ const editList = (
                   name='oneCNumber'
                 >
                   <Input placeholder="请输入" allowClear style={{width: 400}}
-                         disabled={editData.oneCNumber !== undefined}/>
+                         disabled={ editData.id }/>
                 </Form.Item>
                 <Form.Item
                   label='充电枪名称'
-                  rules={[{required: true, message: '请输入'}]}
+                  rules={[
+                    {
+                      required: true,
+                      message: '请输入'
+                    },
+                    {
+                      pattern: new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9.\\()\\ ()] {1,10}$"),
+                      message: '中文/英文/数字/下划线/括号组成，不超过10个汉字长度'
+                    }]}
                   name='oneCName'
                 >
                   <Input placeholder="请输入" allowClear style={{width: 400}}/>
@@ -202,11 +157,16 @@ const editList = (
                   name='twoCNumber'
                 >
                   <Input placeholder="请输入" allowClear style={{width: 400}}
-                         disabled={editData.twoCNumber !== undefined}/>
+                         disabled={editData.id }/>
                 </Form.Item>
                 <Form.Item
                   label='充电枪名称'
-                  rules={[{required: true, message: '请输入'}]}
+                  rules={[
+                    {required: true, message: '请输入'},
+                    {
+                      pattern: new RegExp("^[\u4e00-\u9fa5_a-zA-Z0-9.\\()\\ ()] {1,10}$"),
+                      message: '中文/英文/数字/下划线/括号组成，不超过10个汉字长度'
+                    }]}
                   name='twoCName'
                 >
                   <Input placeholder="请输入" allowClear style={{width: 400}}/>
@@ -226,8 +186,7 @@ const editList = (
             </Form.Item>
           </Form>
         </div>
-      </PageContainer>
-    </div>
+
   )
 }
 
