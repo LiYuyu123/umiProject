@@ -14,7 +14,7 @@ export default {
     success: true,
     code: 200,
     data: {
-      token: 'sdsadasdasdadsdadadasaasaaassasaad',
+      token: 'sdsadasdasdadsdadadasaadssdsdsdssaaassasaad',
     },
   },
 
