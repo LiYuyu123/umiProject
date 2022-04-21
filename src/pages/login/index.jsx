@@ -15,6 +15,7 @@ import {
 import { message, Space, Tabs } from 'antd';
 import { useState } from 'react';
 import { connect } from 'umi';
+import styles from './index.less';
 
 const iconStyles = {
   marginLeft: '16px',
@@ -32,14 +33,13 @@ const Login = ({ dispatch }) => {
     dispatch({
       type: 'login/getLogin',
       payload: {
-        name: values.username,
-        password: values.password,
+        value: values,
       },
     });
   };
 
   return (
-    <div style={{ backgroundColor: 'white' }}>
+    <div style={{ backgroundColor: 'white' }} className={styles.login}>
       <LoginForm
         title="李子杰"
         subTitle="全球最大同性交友网站"

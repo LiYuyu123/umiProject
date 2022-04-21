@@ -1,6 +1,7 @@
 import * as service from '@/service';
 import { message } from 'antd';
 import { history } from 'umi';
+import { clearCookie, setCookie } from '@/utils/utils';
 
 export default {
   namespace: 'login',
@@ -11,14 +12,15 @@ export default {
     },
   },
   effects: {
-    *getLogin({ payload: { name, password } }, { call }) {
-      const { data } = yield call(service.login, { name, password });
-      document.cookie = `token = ${data.token}`;
+    *getLogin({ payload: { value } }, { call }) {
+      const { data } = yield call(service.login, { ...value });
+      setCookie('token', data.token, 2);
       message.success('🎉 🎉 🎉  登录成功！');
       history.replace('/');
     },
-    *logout({ payload: { name, password } }, { call }) {
-      yield call(service.logout, { name, password });
+    *logout(_, { call }) {
+      yield call(service.logout);
+      clearCookie('token');
       message.success('退出登录成功！');
       history.replace('/login');
     },

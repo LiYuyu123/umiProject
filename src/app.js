@@ -1,3 +1,6 @@
+import { getLoginInfo } from '@/service';
+import Right from '@/components/Right';
+
 export const dva = {
   config: {
     onError(e) {
@@ -10,12 +13,24 @@ export const dva = {
 export const request = {
   errorConfig: {
     adaptor: (resData) => {
-      console.log(resData)
       return {
         ...resData,
-        success:resData.code === 200,
+        success: resData.code === 200,
         errorMessage: resData.message,
       };
     },
   },
+};
+
+// 页面初始化
+export const getInitialState = async () => {
+  const { data } = await getLoginInfo();
+  return data;
+};
+
+// 布局设置
+export const layout = () => {
+  return {
+    rightContentRender: () => <Right />,
+  };
 };

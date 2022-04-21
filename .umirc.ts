@@ -18,6 +18,7 @@ export default defineConfig({
       component: '@/pages/root',
       headerRender: false,
       menuRender: false,
+      wrappers: ['@/wrappers/auth'],
     },
 
     {
@@ -32,6 +33,7 @@ export default defineConfig({
       name: '设备管理',
       path: '/deviceManagement',
       role: 'deviceManagement',
+      wrappers: ['@/wrappers/auth'],
       component: '@/pages/deviceManagement',
       routes: [
         {

@@ -18,7 +18,7 @@ export default {
     },
   },
 
-  'POST /api/getLogout': {
+  'GET /api/getLogout': {
     message: '上传成功',
     success: true,
     code: 200,
