@@ -23,6 +23,8 @@
     "@ant-design/plots": "^1.0.9",
     "@ant-design/pro-form": "^1.64.1",
     "@ant-design/pro-layout": "^6.5.0",
+    "@umijs/plugin-antd-mobile": "^1.2.0",
+    "antd-mobile": "^5.11.1",
     "dayjs": "^1.11.1",
     "downloadjs": "^1.4.7",
     "js-cookie": "^3.0.1",
@@ -33,7 +35,7 @@
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@umijs/preset-react": "1.x",
+    "@umijs/preset-react": "^1.8.30",
     "@umijs/test": "^3.5.22",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.0",

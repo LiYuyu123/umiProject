@@ -42,7 +42,7 @@ const Login = ({ dispatch }) => {
     <div style={{ backgroundColor: 'white' }} className={styles.login}>
       <LoginForm
         title="李子杰"
-        subTitle="全球最大同性交友网站"
+        subTitle="lzj"
         actions={
           <Space>
             其他登录方式
