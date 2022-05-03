@@ -178,4 +178,79 @@ export default {
       },
     ],
   },
+  //下载文件
+  'POST /api/postMoney': {
+    code: 200,
+    message: '上传成功',
+    data: [],
+  },
+
+  'GET /api/getMoneyTable': {
+    code: 200,
+    data: {
+      curPage: 1,
+      pageSize: 10,
+      records: [
+        {
+          date: '2021-05-02',
+          tData: 2222,
+          record: [
+            {
+              method: '衣',
+              remarks: '吃饭',
+              mData: 6666,
+            },
+          ],
+        },
+        {
+          date: '2021-05-01',
+          tData: 8888,
+          record: [
+            {
+              method: '消费',
+              remarks: '玩',
+              mData: 8888,
+            },
+          ],
+        },
+      ],
+      total: 50,
+    },
+    message: '',
+    success: true,
+  },
+  'GET /api/getMoneyTableTwo': {
+    code: 200,
+    data: {
+      curPage: 1,
+      pageSize: 10,
+      records: [
+        {
+          date: '2021-05-04',
+          tData: 2222,
+          record: [
+            {
+              method: '工作',
+              remarks: '',
+              mData: 6666,
+            },
+          ],
+        },
+        {
+          date: '2021-05-03',
+          tData: 8888,
+          record: [
+            {
+              method: '打游戏',
+              remarks: '玩',
+              mData: 8888,
+            },
+          ],
+        },
+      ],
+      total: 50,
+    },
+    message: '',
+    success: true,
+  },
 };

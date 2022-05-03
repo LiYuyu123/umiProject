@@ -1,5 +1,28 @@
+import { List, PullToRefresh, SwipeAction } from 'antd-mobile';
+
 const Lables = () => {
-  return <div>1</div>;
+  const items = ['A', 'B', 'C'];
+  const rightActions = [
+    {
+      key: 'delete',
+      text: '删除',
+      color: 'danger',
+    },
+  ];
+
+  return (
+    <div>
+      <PullToRefresh>
+        <List>
+          {items.map((item) => (
+            <SwipeAction key={item} rightActions={rightActions}>
+              <List.Item>{item}</List.Item>
+            </SwipeAction>
+          ))}
+        </List>
+      </PullToRefresh>
+    </div>
+  );
 };
 
 export default Lables;
