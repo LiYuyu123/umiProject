@@ -6,7 +6,7 @@ export default {
     listData: [],
     curPage: 1,
     pageSize: 10,
-    completeText: '', //下拉完成时的文案
+    hasMore: false,
   },
   reducers: {
     save(state, { payload: newState }) {
@@ -49,16 +49,22 @@ export default {
     *pullTo({ payload: { type } }, { call, select, put }) {
       let curPage = yield select((state) => state.curPage);
       let pageSize = yield select((state) => state.pageSize);
+      yield put({
+        type: 'save',
+        payload: {
+          hasMore: true,
+        },
+      });
       curPage++;
       if (type === 'expenditure') {
         const {
           data: { records = [], total },
         } = yield call(service.getMoneyList, { curPage, pageSize });
-        if (total === 50) {
+        if (curPage === 50) {
           yield put({
             type: 'save',
             payload: {
-              completeText: '暂无更多数据',
+              hasMore: false,
             },
           });
         }
@@ -71,11 +77,11 @@ export default {
         const {
           data: { records = [], total },
         } = yield call(service.getMoneyListTwo, { curPage, pageSize });
-        if (total === 50) {
+        if (curPage === 50) {
           yield put({
             type: 'save',
             payload: {
-              completeText: '暂无更多数据',
+              hasMore: false,
             },
           });
         }

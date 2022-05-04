@@ -1,9 +1,9 @@
-import { List, PullToRefresh, SwipeAction, Tabs } from 'antd-mobile';
+import { InfiniteScroll, List, SwipeAction, Tabs } from 'antd-mobile';
 import style from './index.less';
 import { connect } from 'umi';
 import { useState } from 'react';
 
-const Statistics = ({ dispatch, tableLoading = false, listData }) => {
+const Statistics = ({ dispatch, tableLoading = false, listData, hasMore }) => {
   const [type, setType] = useState('expenditure');
   const rightActions = [
     {
@@ -33,7 +33,7 @@ const Statistics = ({ dispatch, tableLoading = false, listData }) => {
           },
         });
   };
-  //下拉刷新
+  //无限滚动
   const refresh = () => {
     dispatch({
       type: 'statistics/getList',
@@ -46,35 +46,34 @@ const Statistics = ({ dispatch, tableLoading = false, listData }) => {
         <Tabs.Tab title="支出" key="expenditure" />
         <Tabs.Tab title="收入" key="income" />
       </Tabs>
-      <PullToRefresh onRefresh={refresh}>
-        <List loading={tableLoading}>
-          {listData.map((i, index) => {
-            return (
-              <div className={style.list} key={index}>
-                <header className={style.header}>
-                  <div className={style.word}>{i.date}</div>
-                  <div className={style.word}>￥ {i.tData}</div>
-                </header>
-                {i.record.map((j, index) => {
-                  return (
-                    <div className={style.action} key={index}>
-                      <SwipeAction rightActions={rightActions}>
-                        <div className={style.content}>
-                          <div>
-                            <span className={style.word1}>{j.method}</span>
-                            <span className={style.word2}>{j.remarks}</span>
-                          </div>
-                          <div className={style.word3}>￥{j.mData}</div>
+      <List loading={tableLoading}>
+        {listData.map((i, index) => {
+          return (
+            <div className={style.list} key={index}>
+              <header className={style.header}>
+                <div className={style.word}>{i.date}</div>
+                <div className={style.word}>￥ {i.tData}</div>
+              </header>
+              {i.record.map((j, index) => {
+                return (
+                  <div className={style.action} key={index}>
+                    <SwipeAction rightActions={rightActions}>
+                      <div className={style.content}>
+                        <div>
+                          <span className={style.word1}>{j.method}</span>
+                          <span className={style.word2}>{j.remarks}</span>
                         </div>
-                      </SwipeAction>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </List>
-      </PullToRefresh>
+                        <div className={style.word3}>￥{j.mData}</div>
+                      </div>
+                    </SwipeAction>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </List>
+      <InfiniteScroll loadMore={refresh} hasMore={hasMore} />
     </div>
   );
 };
