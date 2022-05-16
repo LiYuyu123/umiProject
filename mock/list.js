@@ -253,4 +253,9 @@ export default {
     message: '',
     success: true,
   },
+  'POST /api/delete': {
+    code: 200,
+    message: '上传成功',
+    data: [],
+  },
 };

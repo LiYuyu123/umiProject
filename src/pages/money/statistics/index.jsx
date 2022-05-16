@@ -40,6 +40,7 @@ const Statistics = ({ dispatch, tableLoading = false, listData, hasMore }) => {
       payload: type,
     });
   };
+
   return (
     <div className={style.main}>
       <Tabs onChange={changeTab}>
@@ -47,17 +48,28 @@ const Statistics = ({ dispatch, tableLoading = false, listData, hasMore }) => {
         <Tabs.Tab title="收入" key="income" />
       </Tabs>
       <List loading={tableLoading}>
-        {listData.map((i, index) => {
+        {listData.map((i, indexOne) => {
           return (
-            <div className={style.list} key={index}>
+            <div className={style.list} key={indexOne}>
               <header className={style.header}>
                 <div className={style.word}>{i.date}</div>
                 <div className={style.word}>￥ {i.tData}</div>
               </header>
-              {i.record.map((j, index) => {
+              {i.record.map((j, indexTwo) => {
                 return (
-                  <div className={style.action} key={index}>
-                    <SwipeAction rightActions={rightActions}>
+                  <div className={style.action} key={indexTwo}>
+                    <SwipeAction
+                      rightActions={rightActions}
+                      onAction={() => {
+                        dispatch({
+                          type: 'statistics/deleteData',
+                          payload: {
+                            indexOne,
+                            indexTwo,
+                          },
+                        });
+                      }}
+                    >
                       <div className={style.content}>
                         <div>
                           <span className={style.word1}>{j.method}</span>

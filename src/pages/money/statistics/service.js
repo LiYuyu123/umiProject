@@ -14,3 +14,10 @@ export function getMoneyListTwo(data) {
     params: data,
   });
 }
+
+export function deleteData(data) {
+  return request('/api/delete', {
+    method: 'POST',
+    data: data,
+  });
+}

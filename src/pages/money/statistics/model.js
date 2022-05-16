@@ -1,4 +1,5 @@
 import * as service from './service';
+import { Toast } from 'antd-mobile';
 
 export default {
   namespace: 'statistics',
@@ -13,7 +14,10 @@ export default {
       return { ...state, ...newState };
     },
     push(state, { payload: data }) {
-      return state.concat(data);
+      return state.listData.concat(data);
+    },
+    splice(state, { payload: { indexOne, indexTwo } }) {
+      return state?.listData[indexOne]?.record.splice(indexTwo, 1);
     },
   },
   effects: {
@@ -47,6 +51,10 @@ export default {
     },
     //TODO未测试
     *pullTo({ payload: { type } }, { call, select, put }) {
+      Toast.show({
+        icon: 'loading',
+        content: '加载中…',
+      });
       let curPage = yield select((state) => state.curPage);
       let pageSize = yield select((state) => state.pageSize);
       yield put({
@@ -90,6 +98,9 @@ export default {
           payload: records,
         });
       }
+    },
+    *deleteData({ payload: { indexOne, indexTwo } }, { call }) {
+      yield call(service.deleteData, { indexOne, indexTwo });
     },
   },
   subscriptions: {
